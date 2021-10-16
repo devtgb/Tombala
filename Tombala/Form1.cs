@@ -19,9 +19,9 @@ namespace Tombala
         }
         int sayi;
         Button btn;
-        int butonSayisi = 90;
-        int rastgelesayi = 89;
-        bool sayivarmi = false;
+        int totalButton = 90;
+        int randomNumber = 89;
+        bool isNumber = false;
 
 
         private void yeniOyunToolStripMenuItem_Click(object sender, EventArgs e)
@@ -30,9 +30,9 @@ namespace Tombala
             int sol = 0; //formun sol tarafından atanan değer
             int alt = 4; // formun üst tarafından atanan değer
             int bol; // bolme işlemindeki amaç formun boyutuna göre butonları sıralı bir şekilde görebilmek için
-            bol = Convert.ToInt32(Math.Ceiling(Math.Sqrt(butonSayisi)));
+            bol = Convert.ToInt32(Math.Ceiling(Math.Sqrt(totalButton)));
 
-            for (int i = 1; i <= butonSayisi; i++)  // girilen buton sayısına göre döngü şartı sağlanana kadar oluşturmakta
+            for (int i = 1; i <= totalButton; i++)  // girilen buton sayısına göre döngü şartı sağlanana kadar oluşturmakta
             {
 
                 btn = new Button();
@@ -71,11 +71,11 @@ namespace Tombala
         private void btnSayiCek_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            sayi = rnd.Next(1, 91);
+            number = rnd.Next(1, 91);
 
-             sayivarmi = AyniSayiVarmi(sayi);
+             isNumber = IsSameNumber(sayi);
 
-             if (sayivarmi == false)
+             if (isNumber == false)
              {
                  foreach (Control buton in panel2.Controls) //panelde ki butonlar kontrol ediliyor. 
                  {
@@ -84,35 +84,35 @@ namespace Tombala
 
                      if (buton.GetType() == typeof(Button))
                      {
-                         if (buton.Text == sayi.ToString()) //butonun text'i ile sayi eşitse
+                         if (buton.Text == number.ToString()) //butonun text'i ile sayi eşitse
                          {
 
                              d.BackColor = Color.LightBlue;
                              //rastgelesayi--;
-                             butonSayisi--;
+                             totalButton--;
 
                              if (txtSonCekilen.Text != " ")
                              {
                                  txtSonCekilen.Text = " ";
                              }
-                             txtSonCekilen.Text = sayi.ToString();
+                             txtSonCekilen.Text = number.ToString();
 
 
                              if (txtKalanCekilis.Text != " ")
                              {
                                  txtKalanCekilis.Text = " ";
                              }
-                             txtKalanCekilis.Text = butonSayisi.ToString();
-                             lstCekilenler.Items.Add(sayi);               
+                             txtKalanCekilis.Text = totalButton.ToString();
+                             lstCekilenler.Items.Add(number);               
                          }
                      }
                  }
              }
              else
              {
-                 sayi = rnd.Next(1, 91);
+                 number = rnd.Next(1, 91);
 
-                 sayivarmi = AyniSayiVarmi(sayi);
+                 isNumber = IsSameNumber(number);
              }
             }
         /// <summary>
@@ -120,23 +120,23 @@ namespace Tombala
         /// </summary>
         /// <param name="sayi"></param>
         /// <returns></returns>
-        bool AyniSayiVarmi(int sayi)
+        bool IsSameNumber(int sayi)
         {
-            bool durum = false;
+            bool status = false;
                 if (lstCekilenler.Items.Contains(sayi))
                 {
-                    durum = true;
+                    status = true;
                 }
                 else
                 {
-                     durum = false;
+                     status = false;
                 }
             return durum;
         }
 
         private void hakkımızdaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Tombala oyunu Tuğba Gül tarafından yazılmıştır");
+            MessageBox.Show("Tombala oyunu");
         }
         }
     }
